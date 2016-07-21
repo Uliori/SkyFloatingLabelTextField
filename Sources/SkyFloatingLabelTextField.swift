@@ -51,6 +51,16 @@ public class SkyFloatingLabelTextField: UITextField {
         }
     }
     
+    /// A value that determines the padding of the label
+    @IBInspectable public var labelPadding:CGFloat = 0
+    
+    /// A value that determines the padding of the bottom line
+    @IBInspectable public var linePadding:CGFloat = 0{
+        didSet {
+            self.updateLineView()
+        }
+    }
+    
     /// A UIColor value that determines text color of the placeholder label
     @IBInspectable public var placeholderColor:UIColor = UIColor.lightGrayColor() {
         didSet {
@@ -287,7 +297,7 @@ public class SkyFloatingLabelTextField: UITextField {
         titleLabel.font = UIFont.systemFontOfSize(13)
         titleLabel.alpha = 0.0
         titleLabel.textColor = self.titleColor
-        titleLabel.textAlignment = self.textAlignment //NOTE(Mehdi) : Added !
+        titleLabel.textAlignment = self.textAlignment
         self.addSubview(titleLabel)
         self.titleLabel = titleLabel
     }
@@ -500,9 +510,9 @@ public class SkyFloatingLabelTextField: UITextField {
     public func titleLabelRectForBounds(bounds:CGRect, editing:Bool) -> CGRect {
         let titleHeight = self.titleHeight()
         if editing {
-            return CGRectMake(0, 0, bounds.size.width, titleHeight)
+            return CGRectMake(labelPadding, 0, bounds.size.width, titleHeight)
         }
-        return CGRectMake(0, titleHeight, bounds.size.width, titleHeight)
+        return CGRectMake(labelPadding, titleHeight, bounds.size.width, titleHeight)
     }
     
     /**
@@ -513,7 +523,7 @@ public class SkyFloatingLabelTextField: UITextField {
      */
     public func lineViewRectForBounds(bounds:CGRect, editing:Bool) -> CGRect {
         let lineHeight:CGFloat = editing ? CGFloat(self.selectedLineHeight) : CGFloat(self.lineHeight)
-        return CGRectMake(0, bounds.size.height - lineHeight, bounds.size.width, lineHeight);
+        return CGRectMake(self.linePadding, bounds.size.height - lineHeight, bounds.size.width, lineHeight);
     }
     
     /**

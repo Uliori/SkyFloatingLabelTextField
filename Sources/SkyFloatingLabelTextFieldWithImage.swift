@@ -63,8 +63,9 @@ public class SkyFloatingLabelTextFieldWithImage: SkyFloatingLabelTextField {
     
     /// Creates the icon label
     private func createLeftImage() {
-        let imageView = UIImageView()
+        imageView = UIImageView()
         imageView.backgroundColor = UIColor.clearColor()
+        imageView.contentMode = .Center
         imageView.autoresizingMask = [.FlexibleTopMargin, .FlexibleRightMargin]
         self.addSubview(imageView)
     }
@@ -136,7 +137,7 @@ public class SkyFloatingLabelTextFieldWithImage: SkyFloatingLabelTextField {
         let textHeight = self.textHeight()
         let textWidth:CGFloat = self.bounds.size.width
         if isLTRLanguage {
-            self.imageView.frame = CGRectMake(0, self.bounds.size.height - textHeight, imageWidth, textHeight)
+            self.imageView.frame = CGRectMake(0, self.bounds.origin.y, imageWidth, self.bounds.size.height)
         } else {
             self.imageView.frame = CGRect(x: textWidth - imageWidth , y: self.bounds.size.height - textHeight, width: imageWidth, height: textHeight)
         }
