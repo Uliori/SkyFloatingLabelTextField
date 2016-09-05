@@ -590,3 +590,54 @@ public class SkyFloatingLabelTextField: UITextField {
         return nil
     }
 }
+public class RLSkyFloatingLabelTextField: SkyFloatingLabelTextField {
+    
+    public var shouldDisplayRightView: Bool {
+        return self.rightViewMode == .Always
+            || (self.editing && self.rightViewMode == .WhileEditing)
+            || (!self.editing && self.rightViewMode == .UnlessEditing)
+    }
+    
+    //
+    override public func rightViewRectForBounds(bounds: CGRect) -> CGRect {
+        if self.shouldDisplayRightView {
+            return super.rightViewRectForBounds(bounds)
+        } else {
+            return CGRect.zero
+        }
+    }
+    
+    //
+    override public func textRectForBounds(bounds: CGRect) -> CGRect {
+        var rect = super.textRectForBounds(bounds)
+        let rightRect = self.rightViewRectForBounds(bounds)
+        rect.size.width -= rightRect.size.width
+        return rect
+    }
+    
+    //
+    override public func editingRectForBounds(bounds: CGRect) -> CGRect {
+        var rect = super.editingRectForBounds(bounds)
+        let rightRect = self.rightViewRectForBounds(bounds)
+        rect.size.width -= rightRect.size.width
+        return rect
+    }
+    
+    //
+    override public func placeholderRectForBounds(bounds: CGRect) -> CGRect {
+        var rect = super.placeholderRectForBounds(bounds)
+        let rightRect = self.rightViewRectForBounds(bounds)
+        rect.size.width -= rightRect.size.width
+        return rect
+    }
+    
+    //
+    override public func titleLabelRectForBounds(bounds: CGRect, editing: Bool) -> CGRect {
+        var rect = super.titleLabelRectForBounds(bounds, editing: editing)
+        let rightRect = self.rightViewRectForBounds(bounds)
+        rect.size.width -= rightRect.size.width
+        return rect
+    }
+    
+}
+

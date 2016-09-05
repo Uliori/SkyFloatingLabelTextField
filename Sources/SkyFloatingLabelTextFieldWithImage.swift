@@ -19,7 +19,7 @@ import UIKit
 /**
  A beautiful and flexible textfield implementation with support for icon, title label, error message and placeholder.
  */
-public class SkyFloatingLabelTextFieldWithImage: SkyFloatingLabelTextField {
+public class SkyFloatingLabelTextFieldWithImage: RLSkyFloatingLabelTextField {
     
     /// A UILabel value that identifies the label used to display the icon
     public var imageView:UIImageView!
