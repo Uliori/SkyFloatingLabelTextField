@@ -19,21 +19,21 @@ import UIKit
 /**
  A beautiful and flexible textfield implementation with support for icon, title label, error message and placeholder.
  */
-public class SkyFloatingLabelTextFieldWithImage: RLSkyFloatingLabelTextField {
+open class SkyFloatingLabelTextFieldWithImage: RLSkyFloatingLabelTextField {
     
     /// A UILabel value that identifies the label used to display the icon
-    public var imageView:UIImageView!
+    open var imageView:UIImageView!
     
     /// A String value that determines the text used when displaying the icon
     @IBInspectable
-    public var image:UIImage? {
+    open var image:UIImage? {
         didSet {
             self.imageView?.image = image
         }
     }
     
     /// A float value that determines the width of the icon
-    @IBInspectable public var imageWidth:CGFloat = 20 {
+    @IBInspectable open var imageWidth:CGFloat = 20 {
         didSet {
             self.updateFrame()
         }
@@ -62,18 +62,18 @@ public class SkyFloatingLabelTextFieldWithImage: RLSkyFloatingLabelTextField {
     // MARK: Creating the icon label
     
     /// Creates the icon label
-    private func createLeftImage() {
+    fileprivate func createLeftImage() {
         imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clearColor()
-        imageView.contentMode = .Center
-        imageView.autoresizingMask = [.FlexibleTopMargin, .FlexibleRightMargin]
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .center
+        imageView.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
         self.addSubview(imageView)
     }
     
     // MARK: Handling the icon color
     
     /// Update the colors for the control. Override to customize colors.
-    override public func updateColors() {
+    override open func updateColors() {
         super.updateColors()
     }
     
@@ -84,8 +84,8 @@ public class SkyFloatingLabelTextFieldWithImage: RLSkyFloatingLabelTextField {
      - parameter bounds: The current bounds of the textfield component
      - returns: The rectangle that the textfield component should render in
      */
-    override public func textRectForBounds(bounds: CGRect) -> CGRect {
-        var rect = super.textRectForBounds(bounds)
+    override open func textRect(forBounds bounds: CGRect) -> CGRect {
+        var rect = super.textRect(forBounds: bounds)
         if isLTRLanguage {
             rect.origin.x += CGFloat(imageWidth)
         } else {
@@ -100,8 +100,8 @@ public class SkyFloatingLabelTextFieldWithImage: RLSkyFloatingLabelTextField {
      - parameter bounds: The current bounds of the field
      - returns: The rectangle that the textfield should render in
      */
-    override public func editingRectForBounds(bounds: CGRect) -> CGRect {
-        var rect = super.editingRectForBounds(bounds)
+    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
+        var rect = super.editingRect(forBounds: bounds)
         if isLTRLanguage {
             rect.origin.x += CGFloat(imageWidth)
         } else {
@@ -116,8 +116,8 @@ public class SkyFloatingLabelTextFieldWithImage: RLSkyFloatingLabelTextField {
      - parameter bounds: The current bounds of the placeholder component
      - returns: The rectangle that the placeholder component should render in
      */
-    override public func placeholderRectForBounds(bounds: CGRect) -> CGRect {
-        var rect = super.placeholderRectForBounds(bounds)
+    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        var rect = super.placeholderRect(forBounds: bounds)
         if isLTRLanguage {
             rect.origin.x += CGFloat(imageWidth)
         } else {
@@ -128,16 +128,16 @@ public class SkyFloatingLabelTextFieldWithImage: RLSkyFloatingLabelTextField {
     }
     
     /// Invoked by layoutIfNeeded automatically
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         self.updateFrame()
     }
     
-    private func updateFrame() {
+    fileprivate func updateFrame() {
         let textHeight = self.textHeight()
         let textWidth:CGFloat = self.bounds.size.width
         if isLTRLanguage {
-            self.imageView.frame = CGRectMake(0, self.bounds.origin.y, imageWidth, self.bounds.size.height)
+            self.imageView.frame = CGRect(x: 0, y: self.bounds.origin.y, width: imageWidth, height: self.bounds.size.height)
         } else {
             self.imageView.frame = CGRect(x: textWidth - imageWidth , y: self.bounds.size.height - textHeight, width: imageWidth, height: textHeight)
         }
